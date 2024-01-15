@@ -2,8 +2,8 @@ import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "zeptatronic.com" },
+    { name: "description", content: "Welcome to zeptatronic.com!" },
   ];
 };
 
@@ -16,6 +16,7 @@ export default function Index() {
           target="_blank"
           href="https://doxample.com"
           rel="noreferrer"
+          style={{ color: "red" }}
         >
           powered by doxample.com
         </a>
