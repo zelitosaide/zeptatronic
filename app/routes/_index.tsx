@@ -18,7 +18,7 @@ export default function Index() {
           rel="noreferrer"
           style={{ color: "red" }}
         >
-          powered by doxample.com
+          powered by doxample.com.
         </a>
       </p>
       {/* <ul>
