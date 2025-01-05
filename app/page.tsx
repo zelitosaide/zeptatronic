@@ -32,7 +32,9 @@ export default async function Home() {
                   Email: {user.email} {user.role}
                 </li>
               ))
-            ): null}
+            ): (
+              <p>No users found.</p>
+            )}
           </ul>
         </div>
       </div>
