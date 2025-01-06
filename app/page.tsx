@@ -10,8 +10,8 @@ export default async function Home() {
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-[#000000] text-slate-300 p-4">
           <h1 className="text-red-300">NextJS Routing Files</h1>
-          <Link target="_blank" className="text-orange-300" href="https://nextjs.org/docs/app/getting-started/project-structure">
-            👉 https://nextjs.org/docs/app/getting-started/project-structure
+          <Link target="_blank" className="text-orange-300" href="https://nextjs.org/docs/app/getting-started/images-and-fonts">
+            👉 https://nextjs.org/docs/app/getting-started/images-and-fonts
           </Link>
 
           <p>layout ✅</p>
@@ -31,8 +31,8 @@ export default async function Home() {
           </Link>
           <Gallery />
         </div>
-        <div className="bg-slate-300 p-4">
-          <h1 className="text-slate-700">My App</h1>
+        <div className="bg-slate-600 p-4">
+          <h1>My App</h1>
           <ul>
             {users.length > 0 ? (
               users.map((user) => (
