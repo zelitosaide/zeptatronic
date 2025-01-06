@@ -10,7 +10,7 @@ export default async function Home() {
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-[#000000] text-slate-300 p-4">
           <h1 className="text-red-300">NextJS Routing Files</h1>
-          <Link className="text-orange-300" href="https://nextjs.org/docs/app/getting-started/project-structure">
+          <Link target="_blank" className="text-orange-300" href="https://nextjs.org/docs/app/getting-started/project-structure">
             👉 https://nextjs.org/docs/app/getting-started/project-structure
           </Link>
 
@@ -26,7 +26,7 @@ export default async function Home() {
         </div>
         <div className="bg-[#23272F] text-slate-300 p-4">
           <h1 className="text-red-300">ReactJS</h1>
-          <Link className="text-orange-300" href="https://react.dev/learn/your-first-component">
+          <Link target="_blank" className="text-orange-300" href="https://react.dev/learn/your-first-component">
             👉 https://react.dev/learn/your-first-component
           </Link>
           <Gallery />
@@ -36,9 +36,7 @@ export default async function Home() {
           <ul>
             {users.length > 0 ? (
               users.map((user) => (
-                <li key={user.id}>
-                  Email: {user.email} {user.role}
-                </li>
+                <li key={user.id}>Email: {user.email} {user.role}</li>
               ))
             ): (
               <p>No users found.</p>
