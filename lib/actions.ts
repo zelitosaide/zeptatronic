@@ -2,7 +2,8 @@
 
 import { prisma } from "@/db/prisma";
 
-export async function createComp(formData: FormData) {
+// export async function createComp(formData: FormData) {
+export async function createComp() {
   const comp = await prisma.comp.create({
     data: {
       name: "5V DC Relay Module",
@@ -22,4 +23,4 @@ export async function createComp(formData: FormData) {
   console.log({ comp });
 }
 
-export async function deleteComp(formData: FormData) {}
+// export async function deleteComp(formData: FormData) {}
