@@ -15,7 +15,7 @@ const person = {
 function TodoList() {
   return (
     <div style={person.theme}>
-      <h1>{person.name}'s Todos</h1>
+      <h1>{person.name}&apos;s Todos</h1>
       <img 
         src="https://i.imgur.com/7vQD0fPs.jpg" 
         alt={person.name} 
