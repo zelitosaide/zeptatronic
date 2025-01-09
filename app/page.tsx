@@ -26,8 +26,8 @@ export default async function Home() {
         </div>
         <div className="bg-[#23272F] text-slate-300 p-4">
           <h1 className="text-red-300">ReactJS</h1>
-          <Link target="_blank" className="text-orange-300" href="https://react.dev/learn/javascript-in-jsx-with-curly-braces">
-            👉 https://react.dev/learn/javascript-in-jsx-with-curly-braces
+          <Link target="_blank" className="text-orange-300" href="https://react.dev/learn/passing-props-to-a-component">
+            👉 https://react.dev/learn/passing-props-to-a-component
           </Link>
           <Gallery />
         </div>
