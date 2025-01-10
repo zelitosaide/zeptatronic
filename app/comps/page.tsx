@@ -12,10 +12,15 @@ export default async function Page() {
         {/* <button type="submit">Create Comp</button> */}
       </form>
 
-      <h1>Comps</h1>
+      <h1>Pesquise componentes aqui</h1>
+      <input 
+        type="search" 
+        name="q" 
+        id="" 
+      />
       <ul>
         {comps.map((comp) => (
-          <Comp key={comp.id} name={comp.name} />
+          <Comp key={comp.id} {...comp} />
         ))}
       </ul>
     </>

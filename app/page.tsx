@@ -1,5 +1,5 @@
 import { prisma } from "@/db/prisma";
-import Gallery from "@/components/app";
+import DescribingTheUI from "@/components/describing-the-ui";
 import Link from "next/link";
 
 export default async function Home() {
@@ -26,15 +26,20 @@ export default async function Home() {
         </div>
         <div className="bg-[#23272F] text-slate-300 p-4">
           <h1 className="text-red-300">ReactJS</h1>
-          <Link target="_blank" className="text-orange-300" href="https://react.dev/learn/passing-props-to-a-component">
-            👉 https://react.dev/learn/passing-props-to-a-component
+          <Link target="_blank" className="text-orange-300" href="https://react.dev/learn/rendering-lists">
+            👉 https://react.dev/learn/rendering-lists
           </Link>
-          <Gallery />
+          <p>To review ❌</p>
+          <Link target="_blank" className="text-orange-300 block" href="https://codesandbox.io/p/sandbox/8yjwkf?file=%2Fsrc%2FApp.js%3A5%2C3-5%2C54">
+            👉 https://codesandbox.io/p/sandbox/8yjwkf?file=%2Fsrc%2FApp.js%3A5%2C3-5%2C54
+          </Link>
+          <DescribingTheUI />
         </div>
         <div className="bg-slate-600 p-4">
           <h1>My App</h1>
+          <Link href="/comps">👉 Componentes</Link>
           <ul>
-            {users.length > 0 ? (
+            {Boolean(users.length) ? (
               users.map((user) => (
                 <li key={user.id}>Email: {user.email} {user.role}</li>
               ))
