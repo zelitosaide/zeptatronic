@@ -1,5 +1,8 @@
 // import { Gallery } from "./gallery";
 
+import { getImageUrl } from "@/utils/utils";
+// import { Fragment } from "react";
+
 // const person = {
 //   name: "Gregorio Y. Zara",
 //   avatar: {
@@ -88,69 +91,157 @@
 
 // const today = new Date();
 
-interface ItemProps {
-  name: string
-  isPacked: boolean
-}
+// interface ItemProps {
+//   name: string
+//   isPacked: boolean
+// }
 
-function Item({ name, isPacked }: ItemProps) {
-  // if (isPacked) {
-  //   return <li>{name} ✅</li>;
-  // }
-  // if (isPacked) {
-  //   return null;
-  // }
-  // return <li>{name}</li>;
-  // return (
-  //   <li>
-  //     {isPacked ? (
-  //       <del>{name + " ✅"}</del>
-  //     ): (
-  //       name
-  //     )}
-  //   </li>
+// function Item({ name, isPacked }: ItemProps) {
+//   // if (isPacked) {
+//   //   return <li>{name} ✅</li>;
+//   // }
+//   // if (isPacked) {
+//   //   return null;
+//   // }
+//   // return <li>{name}</li>;
+//   // return (
+//   //   <li>
+//   //     {isPacked ? (
+//   //       <del>{name + " ✅"}</del>
+//   //     ): (
+//   //       name
+//   //     )}
+//   //   </li>
+//   // );
+
+//   // return (
+//   //   <li>
+//   //     {name} {isPacked && "✅"}
+//   //   </li>
+//   // );
+
+//   // let itemContent = name;
+//   // if (isPacked) {
+//   //   itemContent = name + " ✅";
+//   // }
+//   // return <li>{itemContent}</li>;
+
+//   let itemContent: string | React.ReactElement = name;
+//   if (isPacked) {
+//     itemContent = (
+//       <del>
+//         {name + " ✅"}
+//       </del>
+//     );
+//   }
+//   return <li>{itemContent}</li>;
+// }
+
+// function PackingList() {
+//   return (
+//     <section>
+//       <h1>Sally Ride&apos;s Packing List</h1>
+//       <ul>
+//         <Item name="Space suit" isPacked={true} />
+//         <Item name="Helmet with a golden leaf" isPacked={true} />
+//         <Item name="Photo of Tam" isPacked={false} />
+//       </ul>
+//     </section>
+//   );
+// }
+
+const people = [
+  { 
+    id: 0,
+    name: "Creola Katherine Johnson: mathematician",
+    profession: "mathematician",
+    accomplishment: "spaceflight calculations",
+    imageId: "MK3eW3A"
+  },
+  { 
+    id: 1,
+    name: "Mario José Molina-Pasquel Henríquez: chemist",
+    profession: "chemist",
+    accomplishment: "discovery of Arctic ozone hole",
+    imageId: "mynHUSa"
+  },
+  {
+    id: 2,
+    name: "Mohammad Abdus Salam: physicist",
+    profession: "physicist",
+    accomplishment: "electromagnetism theory",
+    imageId: "bE7W1ji"
+  },
+  {
+    id: 3,
+    name: "Percy Lavon Julian: chemist",
+    profession: "chemist",
+    accomplishment: "pioneering cortisone drugs, steroids and birth control pills",
+    imageId: "IOjWm71"
+  },
+  {
+    id: 4,
+    name: "Subrahmanyan Chandrasekhar: astrophysicist",
+    profession: "astrophysicist",
+    accomplishment: "white dwarf star mass calculations",
+    imageId: "lrWQx8l"
+  },
+];
+
+// const listItems = people.map(person => 
+//   <Fragment key={person.id}>
+//     <h1>{person.name}</h1>
+//     <p>{person.profession}</p>
+//   </Fragment>  
+// )
+
+// const chemists = people.filter(person =>
+//   person.profession === "chemist"
+// );
+
+// const listItems = chemists.map(person => 
+//   <li>
+//     <img
+//       src={getImageUrl(person)}
+//       alt={person.name}
+//     />
+//     <p>
+//       <b>{person.name}:</b>
+//       {" " + person.profession + " "}
+//       known for {person.accomplishment}
+//     </p>
+//   </li>  
+// );
+
+function List() {
+  // const listItems = people.map(person => 
+  //   <li>{person.name}</li>
   // );
-
-  // return (
-  //   <li>
-  //     {name} {isPacked && "✅"}
-  //   </li>
-  // );
-
-  // let itemContent = name;
-  // if (isPacked) {
-  //   itemContent = name + " ✅";
-  // }
-  // return <li>{itemContent}</li>;
-
-  let itemContent: string | React.ReactElement = name;
-  if (isPacked) {
-    itemContent = (
-      <del>
-        {name + " ✅"}
-      </del>
-    );
-  }
-  return <li>{itemContent}</li>;
-}
-
-function PackingList() {
-  return (
-    <section>
-      <h1>Sally Ride&apos;s Packing List</h1>
-      <ul>
-        <Item name="Space suit" isPacked={true} />
-        <Item name="Helmet with a golden leaf" isPacked={true} />
-        <Item name="Photo of Tam" isPacked={false} />
-      </ul>
-    </section>
+  const chemists = people.filter(person =>
+    person.profession === "chemist"
   );
+  const listItems = chemists.map(person =>
+    <li key={person.id}>
+       <img
+        src={getImageUrl(person)}
+        alt={person.name}
+      />
+      <p>
+        <b>{person.name}:</b>
+        {" " + person.profession + " "}
+        known for {person.accomplishment}
+      </p>
+    </li>  
+  );
+  return <ul>{listItems}</ul>;
 }
+
 
 export default function App() {
   return (
     <>
-      <PackingList />
+      <List />
+      {/* <PackingList /> */}
       {/* <Gallery /> */}
       {/* <TodoList /> */}
       {/* <Avatar

@@ -20,5 +20,9 @@ export default async function Page({
     where: { id: slug }
   });
 
-  return <h1>📀 {comp?.name}</h1>;
+  return (
+    <>
+      <h1>📀 {comp?.name}</h1>
+    </>
+  );
 }
