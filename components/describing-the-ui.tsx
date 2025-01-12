@@ -1,6 +1,8 @@
 // import { Gallery } from "./gallery";
 
-import { getImageUrl } from "@/utils/utils";
+// import { Fragment } from "react";
+
+// import { getImageUrl } from "@/utils/utils";
 // import { Fragment } from "react";
 
 // const person = {
@@ -150,43 +152,43 @@ import { getImageUrl } from "@/utils/utils";
 //   );
 // }
 
-const people = [
-  { 
-    id: 0,
-    name: "Creola Katherine Johnson: mathematician",
-    profession: "mathematician",
-    accomplishment: "spaceflight calculations",
-    imageId: "MK3eW3A"
-  },
-  { 
-    id: 1,
-    name: "Mario José Molina-Pasquel Henríquez: chemist",
-    profession: "chemist",
-    accomplishment: "discovery of Arctic ozone hole",
-    imageId: "mynHUSa"
-  },
-  {
-    id: 2,
-    name: "Mohammad Abdus Salam: physicist",
-    profession: "physicist",
-    accomplishment: "electromagnetism theory",
-    imageId: "bE7W1ji"
-  },
-  {
-    id: 3,
-    name: "Percy Lavon Julian: chemist",
-    profession: "chemist",
-    accomplishment: "pioneering cortisone drugs, steroids and birth control pills",
-    imageId: "IOjWm71"
-  },
-  {
-    id: 4,
-    name: "Subrahmanyan Chandrasekhar: astrophysicist",
-    profession: "astrophysicist",
-    accomplishment: "white dwarf star mass calculations",
-    imageId: "lrWQx8l"
-  },
-];
+// const people = [
+//   { 
+//     id: 0,
+//     name: "Creola Katherine Johnson: mathematician",
+//     profession: "mathematician",
+//     accomplishment: "spaceflight calculations",
+//     imageId: "MK3eW3A"
+//   },
+//   { 
+//     id: 1,
+//     name: "Mario José Molina-Pasquel Henríquez: chemist",
+//     profession: "chemist",
+//     accomplishment: "discovery of Arctic ozone hole",
+//     imageId: "mynHUSa"
+//   },
+//   {
+//     id: 2,
+//     name: "Mohammad Abdus Salam: physicist",
+//     profession: "physicist",
+//     accomplishment: "electromagnetism theory",
+//     imageId: "bE7W1ji"
+//   },
+//   {
+//     id: 3,
+//     name: "Percy Lavon Julian: chemist",
+//     profession: "chemist",
+//     accomplishment: "pioneering cortisone drugs, steroids and birth control pills",
+//     imageId: "IOjWm71"
+//   },
+//   {
+//     id: 4,
+//     name: "Subrahmanyan Chandrasekhar: astrophysicist",
+//     profession: "astrophysicist",
+//     accomplishment: "white dwarf star mass calculations",
+//     imageId: "lrWQx8l"
+//   },
+// ];
 
 // const listItems = people.map(person => 
 //   <Fragment key={person.id}>
@@ -213,34 +215,82 @@ const people = [
 //   </li>  
 // );
 
-function List() {
-  // const listItems = people.map(person => 
-  //   <li>{person.name}</li>
-  // );
-  const chemists = people.filter(person =>
-    person.profession === "chemist"
-  );
-  const listItems = chemists.map(person =>
-    <li key={person.id}>
-       <img
-        src={getImageUrl(person)}
-        alt={person.name}
-      />
-      <p>
-        <b>{person.name}:</b>
-        {" " + person.profession + " "}
-        known for {person.accomplishment}
-      </p>
-    </li>  
-  );
-  return <ul>{listItems}</ul>;
-}
+// function List() {
+//   // const listItems = people.map(person => 
+//   //   <li>{person.name}</li>
+//   // );
+//   const chemists = people.filter(person =>
+//     person.profession === "chemist"
+//   );
+//   const listItems = chemists.map(person =>
+//     <li key={person.id}>
+//        <img
+//         src={getImageUrl(person)}
+//         alt={person.name}
+//       />
+//       <p>
+//         <b>{person.name}:</b>
+//         {" " + person.profession + " "}
+//         known for {person.accomplishment}
+//       </p>
+//     </li>  
+//   );
+//   return <ul>{listItems}</ul>;
+// }
 
+const poem = {
+  lines: [
+    "I write, erase, rewrite",
+    "Erase again, and then",
+    "A poppy blooms.",
+  ]
+};
+
+function Poem() {
+  const output: React.ReactElement[] = [];
+
+  poem.lines.forEach((poem, index) => {
+    output.push(
+      <hr 
+        key={index + "-separator"} 
+        style={{ 
+          border: "1px dashed #45c3d8",
+          margin: "0 320px 0 0",
+        }}   
+      />
+    );
+    output.push(
+      <p key={index + "-text"}>{poem}</p>
+    );
+  });
+
+  output.shift();
+
+  return (
+    <article>
+      {output}
+      {/* {poem.lines.map((poem, index) => (
+        <Fragment key={index}>
+          {Boolean(index) && 
+            <hr 
+              style={{ 
+                border: "1px dashed #45c3d8",
+                margin: "0 320px 0 0",
+              }} 
+            />
+          }
+          <p>{poem}</p>
+        </Fragment>
+      ))} */}
+    </article>
+  );
+}
 
 export default function App() {
   return (
     <>
-      <List />
+      <Poem />
+      {/* <List /> */}
       {/* <PackingList /> */}
       {/* <Gallery /> */}
       {/* <TodoList /> */}
