@@ -4,7 +4,7 @@
 //   });
 // }
 
-import { prisma } from "@/db/prisma";
+import { prisma } from "@/lib/prisma";
 
 export async function getComps() {
   return await prisma.comp.findMany({

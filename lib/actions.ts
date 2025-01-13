@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/db/prisma";
+import { prisma } from "@/lib/prisma";
 
 // export async function createComp(formData: FormData) {
 export async function createComp() {

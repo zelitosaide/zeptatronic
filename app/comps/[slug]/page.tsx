@@ -1,4 +1,4 @@
-import { prisma } from "@/db/prisma";
+import { prisma } from "@/lib/prisma";
 
 export async function generateStaticParams() {
   const comps = await prisma.comp.findMany({

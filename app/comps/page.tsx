@@ -1,6 +1,7 @@
 import { createComp } from "@/lib/actions";
 import { getComps } from "@/lib/comps";
 import { Comp } from "@/ui/comp";
+import { lusitana } from "@/ui/fonts";
 
 export default async function Page() {
   const comps = await getComps();
@@ -12,7 +13,7 @@ export default async function Page() {
         {/* <button type="submit">Create Comp</button> */}
       </form>
 
-      <h1>Pesquise componentes aqui</h1>
+      <h1 className={`${lusitana.className}`}>Pesquise componentes aqui</h1>
       <input 
         type="search" 
         name="q" 

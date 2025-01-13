@@ -1,20 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { inter } from "@/ui/fonts";
 
 export const metadata: Metadata = {
-  title: "ZEPTA",
+  title: "ZEPTATRONIC",
   description: "All components you need for your project!",
 };
 
@@ -25,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.className} antialiased`}>
         <header>
           This is header <Link href="/comps">Components</Link> | <Link href="/">Home</Link>
         </header>

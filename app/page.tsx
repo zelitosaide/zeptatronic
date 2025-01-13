@@ -1,4 +1,4 @@
-import { prisma } from "@/db/prisma";
+import { prisma } from "@/lib/prisma";
 import DescribingTheUI from "@/components/describing-the-ui";
 import Link from "next/link";
 
@@ -10,6 +10,9 @@ export default async function Home() {
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-[#000000] text-slate-300 p-4">
           <h1 className="text-red-300">NextJS Routing Files</h1>
+          <Link target="_blank" className="text-orange-300" href="https://nextjs.org/learn/dashboard-app/creating-layouts-and-pages">
+            👉 https://nextjs.org/learn/dashboard-app/creating-layouts-and-pages
+          </Link>
           <Link target="_blank" className="text-orange-300" href="https://nextjs.org/docs/app/getting-started/images-and-fonts">
             👉 https://nextjs.org/docs/app/getting-started/images-and-fonts
           </Link>
