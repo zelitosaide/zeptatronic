@@ -26,12 +26,15 @@ export default async function Home() {
         </div>
         <div className="bg-[#23272F] text-slate-300 p-4">
           <h1 className="text-red-300">ReactJS</h1>
-          <Link target="_blank" className="text-orange-300" href="https://react.dev/learn/keeping-components-pure">
-            👉 https://react.dev/learn/keeping-components-pure
+          <Link target="_blank" className="text-orange-300" href="https://react.dev/learn/adding-interactivity">
+            👉 https://react.dev/learn/adding-interactivity
           </Link>
           <p>To review ❌</p>
           <Link target="_blank" className="text-orange-300 block" href="https://codesandbox.io/p/sandbox/8yjwkf?file=%2Fsrc%2FApp.js%3A5%2C3-5%2C54">
             👉 https://codesandbox.io/p/sandbox/8yjwkf?file=%2Fsrc%2FApp.js%3A5%2C3-5%2C54
+          </Link>
+          <Link target="_blank" className="text-orange-300 block" href="https://codesandbox.io/p/sandbox/d75p49">
+            👉 https://codesandbox.io/p/sandbox/d75p49
           </Link>
           <DescribingTheUI />
         </div>

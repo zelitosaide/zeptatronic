@@ -1,4 +1,7 @@
+"use client";
 // import { Gallery } from "./gallery";
+
+import { useState } from "react";
 
 // import { Fragment } from "react";
 
@@ -238,58 +241,177 @@
 //   return <ul>{listItems}</ul>;
 // }
 
-const poem = {
-  lines: [
-    "I write, erase, rewrite",
-    "Erase again, and then",
-    "A poppy blooms.",
-  ]
-};
+// function double(number: number): number {
+//   return 2 * number;
+// }
 
-function Poem() {
-  const output: React.ReactElement[] = [];
+// const y = double(3);
+// console.log({ y });
 
-  poem.lines.forEach((poem, index) => {
-    output.push(
-      <hr 
-        key={index + "-separator"} 
-        style={{ 
-          border: "1px dashed #45c3d8",
-          margin: "0 320px 0 0",
-        }}   
-      />
-    );
-    output.push(
-      <p key={index + "-text"}>{poem}</p>
-    );
-  });
+// const poem = {
+//   lines: [
+//     "I write, erase, rewrite",
+//     "Erase again, and then",
+//     "A poppy blooms.",
+//   ]
+// };
 
-  output.shift();
+// function Poem() {
+//   const output: React.ReactElement[] = [];
+
+//   poem.lines.forEach((poem, index) => {
+//     output.push(
+//       <hr 
+//         key={index + "-separator"} 
+//         style={{ 
+//           border: "1px dashed #45c3d8",
+//           margin: "0 320px 0 0",
+//         }}   
+//       />
+//     );
+//     output.push(
+//       <p key={index + "-text"}>{poem}</p>
+//     );
+//   });
+
+//   output.shift();
+
+//   return (
+//     <article>
+//       {output}
+//       {/* {poem.lines.map((poem, index) => (
+//         <Fragment key={index}>
+//           {Boolean(index) && 
+//             <hr 
+//               style={{ 
+//                 border: "1px dashed #45c3d8",
+//                 margin: "0 320px 0 0",
+//               }} 
+//             />
+//           }
+//           <p>{poem}</p>
+//         </Fragment>
+//       ))} */}
+//     </article>
+//   );
+// }
+
+// function Recipe({ drinkers }: { drinkers: number}) {
+//   return (
+//     <ol>    
+//       <li>Boil {drinkers} cups of water.</li>
+//       <li>Add {drinkers} spoons of tea and {0.5 * drinkers} spoons of spice.</li>
+//       <li>Add {0.5 * drinkers} cups of milk to boil and sugar to taste.</li>
+//     </ol>
+//   );
+// }
+
+// let guest = 0;
+// function Cup() {
+// function Cup({ guest }: { guest: number}) {
+//   // Bad: changing a preexisting variable!
+//   // guest = guest + 1;
+//   return <h2>Tea cup for guest #{guest}</h2>
+// }
+
+// function TeaGathering() {
+//   const cups = [];
+//   for (let i = 1; i <= 12; i++) {
+//     cups.push(<Cup key={i} guest={i} />)
+//   }
+//   return cups;
+// }
+
+// function TeaSet() {
+//   return (
+//     <>
+//       <Cup guest={1} />
+//       <Cup guest={2} />
+//       <Cup guest={3} />
+//     </>
+//   );
+// }
+const inspirations = [
+  {type: 'quote', value: "Don’t let yesterday take up too much of today.” — Will Rogers"},
+  {type: 'color', value: "#B73636"},
+  {type: 'quote', value: "Ambition is putting a ladder against the sky."},
+  {type: 'color', value: "#256266"},
+  {type: 'quote', value: "A joy that's shared is a joy made double."},
+  {type: 'color', value: "#F9F2B4"},
+];
+
+function Copyright({ year }: { year: number }) {
+  return (
+    <p className="text-sm">©️ {year}</p>
+  );
+}
+
+interface FancyTextProps {
+  title?: boolean
+  text: string
+}
+
+function FancyText({ title, text }: FancyTextProps) {
+  return title
+    ? <h1 className="text-lg text-[#007AA3] underline">{text}</h1>
+    : <h3 className="text-lg italic">{text}</h3>;
+}
+
+function Color({ value }: { value: string }) {
+  return (
+    <div
+      style={{ 
+        height: 100,
+        width: 100,
+        margin: 8,
+        backgroundColor: value
+      }}
+    />
+  );
+}
+
+function InspirationGenerator({ 
+  children 
+}: { 
+  children: React.ReactNode
+}) {
+  const [index, setIndex] = useState(0);
+  const inspiration = inspirations[index];
+  function next() {
+    setIndex((index + 1) % inspirations.length);
+  }
 
   return (
-    <article>
-      {output}
-      {/* {poem.lines.map((poem, index) => (
-        <Fragment key={index}>
-          {Boolean(index) && 
-            <hr 
-              style={{ 
-                border: "1px dashed #45c3d8",
-                margin: "0 320px 0 0",
-              }} 
-            />
-          }
-          <p>{poem}</p>
-        </Fragment>
-      ))} */}
-    </article>
+    <>
+      <p>Your inspirational quote is:</p>
+      {inspiration.type === "quote"
+        ? <FancyText text={inspiration.value} />
+        : <Color value={inspiration.value} />
+      }
+      
+      <button onClick={next}>Inspire me again</button>
+      {children}
+    </>
   );
 }
 
 export default function App() {
   return (
     <>
-      <Poem />
+      <FancyText title text="Get Inspired App" />
+      <InspirationGenerator>
+        <Copyright year={2025} />
+      </InspirationGenerator>
+      {/* <TeaGathering /> */}
+      {/* <TeaSet /> */}
+      {/* <section>
+        <h1>Spiced chai Recipe</h1>
+        <h2>For two</h2>
+        <Recipe drinkers={2} />
+        <h2>For a gathering</h2>
+        <Recipe drinkers={4} />
+      </section> */}
+      {/* <Poem /> */}
       {/* <List /> */}
       {/* <PackingList /> */}
       {/* <Gallery /> */}
