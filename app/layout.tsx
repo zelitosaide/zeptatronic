@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import Link from "next/link";
 import { inter } from "@/ui/fonts";
+
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ZEPTATRONIC",
@@ -16,10 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <header>
-          This is header <Link href="/comps">Components</Link> | <Link href="/">Home</Link>
-        </header>
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );

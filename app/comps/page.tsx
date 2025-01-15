@@ -13,7 +13,7 @@ export default async function Page() {
         {/* <button type="submit">Create Comp</button> */}
       </form>
 
-      <h1 className={`${lusitana.className}`}>Pesquise componentes aqui</h1>
+      <h1 className={`${lusitana.className} bg-red-300`}>Pesquise componentes aqui</h1>
       <input 
         type="search" 
         name="q" 

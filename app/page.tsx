@@ -44,6 +44,7 @@ export default async function Home() {
         <div className="bg-slate-600 p-4">
           <h1>My App</h1>
           <Link href="/comps">👉 Componentes</Link>
+          <Link className="block" href="/dashboard">👉 Dashboard</Link>
           <ul>
             {Boolean(users.length) ? (
               users.map((user) => (
