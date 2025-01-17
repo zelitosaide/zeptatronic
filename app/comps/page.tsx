@@ -1,5 +1,5 @@
 import { createComp } from "@/lib/actions";
-import { getComps } from "@/lib/comps";
+import { getComps } from "@/lib/data";
 import { Comp } from "@/ui/comp";
 import { lusitana } from "@/ui/fonts";
 

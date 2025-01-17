@@ -16,6 +16,9 @@ export default async function Home() {
           <Link target="_blank" className="text-orange-300" href="https://nextjs.org/docs/app/getting-started/images-and-fonts">
             👉 https://nextjs.org/docs/app/getting-started/images-and-fonts
           </Link>
+          <Link target="_blank" className="text-orange-300" href="https://www.partialprerendering.com/">
+            👉 https://www.partialprerendering.com/
+          </Link>
 
           <p>layout ✅</p>
           <p>page ✅</p>
