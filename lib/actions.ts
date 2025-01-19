@@ -35,7 +35,8 @@ export async function createComp(formData: FormData) {
     isActive: formData.get("status") === "Out of Stock" ? false : true,
   });
 
-  const comp = await prisma.comp.create({ data });
+  // const comp = await prisma.comp.create({ data });
+  await prisma.comp.create({ data });
 
   revalidatePath("/dashboard/comps");
   redirect("/dashboard/comps");
