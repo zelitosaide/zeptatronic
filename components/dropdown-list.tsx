@@ -17,7 +17,7 @@ interface DropdownListProps {
 }
 
 export default function DropdownList({ label, name, items }: DropdownListProps) {
-  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+  const [selectedItems, setSelectedItems] = useState<Item[]>([items[0]]);
 
   return (
     <div className="mb-4">
