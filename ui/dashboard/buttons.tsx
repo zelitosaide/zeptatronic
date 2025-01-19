@@ -1,4 +1,4 @@
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 export function CreateComp() {
@@ -10,5 +10,25 @@ export function CreateComp() {
       <span className="hidden md:block">Create Component</span>{" "}
       <PlusIcon className="h-5 md:ml-4" />
     </Link>
+  );
+}
+
+export function UpdateComp({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/dashboard/comps/${id}/edit`}
+      className="rounded-md border p-2 hover:bg-slate-100"
+    >
+      <PencilIcon className="w-5" />
+    </Link>
+  );
+}
+
+export function DeleteComp({ id }: { id: string }) {
+  return (
+    <button className="rounded-md border p-2 hover:bg-slate-100">
+      <span className="sr-only">Delete</span>
+      <TrashIcon className="w-5" />
+    </button>
   );
 }

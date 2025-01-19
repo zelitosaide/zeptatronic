@@ -1,26 +1,44 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { z } from "zod";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-// export async function createComp(formData: FormData) {
-export async function createComp() {
-  const comp = await prisma.comp.create({
-    data: {
-      name: "5V DC Relay Module",
-      type: "Relay",
-      description: "Electromechanical relay module with a 5V coil, suitable for switching AC and DC loads.",
-      datasheet: "https://example.com/datasheets/5v-dc-relay.pdf",
-      images: [
-        "https://example.com/images/5v-dc-relay-front.jpg",
-        "https://example.com/images/5v-dc-relay-back.jpg",
-      ],
-      price: 2.00,
-      stock: 300,
-      categories: ["Relays", "Switching Components"],
-      isActive: true,
-    },
+const CreateCompSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.string(),
+  description: z.string(),
+  datasheet: z.string(),
+  images: z.array(z.string()),
+  price: z.coerce.number(),
+  stock: z.coerce.number(),
+  categories: z.array(z.string()),
+  isActive: z.boolean(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+const CreateComp = CreateCompSchema.omit({ id: true, createdAt: true, updatedAt: true });
+
+export async function createComp(formData: FormData) {
+  const data = CreateComp.parse({
+    name: formData.get("name"),
+    type: formData.get("type"),
+    description: formData.get("description"),
+    datasheet: formData.get("datasheet"),
+    images: JSON.parse(formData.get("images") as string),
+    price: formData.get("price"),
+    stock: formData.get("stock"),
+    categories: JSON.parse(formData.get("categories") as string),
+    isActive: formData.get("status") === "Out of Stock" ? false : true,
   });
-  console.log({ comp });
+
+  const comp = await prisma.comp.create({ data });
+
+  revalidatePath("/dashboard/comps");
+  redirect("/dashboard/comps");
 }
 
 // export async function deleteComp(formData: FormData) {}

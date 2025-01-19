@@ -51,7 +51,9 @@ export default function NavLinks() {
         className={clsx(
           "flex h-[48px] md:h-[46px] grow items-center justify-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-slate-800 md:flex-none md:justify-start md:p-2 md:px-3", 
           {
-            "bg-slate-800 text-teal-500": pathname === link.href,
+            // "bg-slate-800 text-teal-500": pathname === link.href,
+            "bg-slate-800 text-teal-500": link.href !== "/dashboard" && pathname.includes(link.href),
+            "bg-slate-800 text-teal-500 ": pathname === link.href,
           }
         )}
       >

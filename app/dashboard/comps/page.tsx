@@ -1,8 +1,25 @@
+import { fetchCompsPages } from "@/lib/data";
 import { CreateComp } from "@/ui/dashboard/buttons";
-import Search from "@/ui/dashboard/search";
+import { CompsTableSkeleton } from "@/ui/dashboard/skeletons";
 import { lusitana } from "@/ui/fonts";
+import { Suspense } from "react";
+import Search from "@/ui/dashboard/search";
+import CompsTable from "@/ui/dashboard/table";
+import Pagination from "@/ui/dashboard/pagination";
 
-export default async function Page() {
+interface PageProps {
+  searchParams?: Promise<{
+    q: string;
+    page: string;
+  }>
+}
+
+export default async function Page(props: PageProps) {
+  const searchParams = await props.searchParams;
+  const q = searchParams?.q || "";
+  const currentPage = Number(searchParams?.page) || 1;
+  const totalPages = await fetchCompsPages(q);
+
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -12,11 +29,11 @@ export default async function Page() {
         <Search placeholder="Search Components..." />
         <CreateComp />
       </div>
-      {/*  <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <Table query={query} currentPage={currentPage} />
-      </Suspense> */}
+      <Suspense key={q + currentPage} fallback={<CompsTableSkeleton />}>
+        <CompsTable q={q} currentPage={currentPage} />
+      </Suspense>
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );
