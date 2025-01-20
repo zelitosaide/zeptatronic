@@ -13,15 +13,21 @@ interface Item {
 interface SelectProps {
   label: string;
   name: string;
+  defaultValue?: string;
   items: Item[];
 }
 
-export default function Select({ label, name, items }: SelectProps) {
-  const [selected, setSelected] = useState<Item>(items[0]);
+export default function Select({ label, name, defaultValue, items }: SelectProps) {
+  const [selected, setSelected] = useState<Item>(
+    items.find((item) => item.name === defaultValue) || items[0]
+  );
 
   return (
     <div className="mb-4">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox 
+        value={selected} 
+        onChange={setSelected}
+      >
         <Label htmlFor={label} className="mb-2 block text-sm font-medium">{label}</Label>
         <div className="relative mt-2">
           <ListboxButton 

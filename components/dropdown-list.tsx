@@ -13,11 +13,14 @@ interface Item {
 interface DropdownListProps {
   label: string;
   name: string;
+  defaultValues?: string[];
   items: Item[];
 }
 
-export default function DropdownList({ label, name, items }: DropdownListProps) {
-  const [selectedItems, setSelectedItems] = useState<Item[]>([items[0]]);
+export default function DropdownList({ label, name, defaultValues, items }: DropdownListProps) {
+  const [selectedItems, setSelectedItems] = useState<Item[]>(
+    defaultValues ? items.filter((item) => defaultValues.includes(item.name)) : [items[0]]
+  );
 
   return (
     <div className="mb-4">
