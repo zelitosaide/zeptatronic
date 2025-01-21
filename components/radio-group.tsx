@@ -3,6 +3,7 @@ import clsx from "clsx";
 interface RadioGroupProps {
   label: string;
   name: string;
+  defaultChecked?: boolean;
   options: { 
     id: number,
     value: string,
@@ -10,7 +11,7 @@ interface RadioGroupProps {
   }[];
 }
 
-export function RadioGroup({ label, name, options }: RadioGroupProps) {
+export function RadioGroup({ label, name, defaultChecked, options }: RadioGroupProps) {
   return (
     <fieldset>
       <legend className="mb-2 block text-sm font-medium">
@@ -28,6 +29,10 @@ export function RadioGroup({ label, name, options }: RadioGroupProps) {
                   name={name}
                   type="radio"
                   value={option.value}
+                  defaultChecked={
+                    defaultChecked && option.value === "In Stock" 
+                    || !defaultChecked && option.value === "Out of Stock"
+                  }
                   className="h-4 w-4 cursor-pointer border-slate-300 bg-slate-100 text-slate-600 focus:border-teal-500 focus:border-opacity-60 focus:ring-2 focus:ring-teal-500"
                 />
                 <label

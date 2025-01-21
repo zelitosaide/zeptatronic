@@ -6,11 +6,12 @@ import { useState, KeyboardEvent, ChangeEvent } from "react";
 interface ChipsInputProps {
   label?: string; // Optional label for the input
   name: string; // Name attribute for the input
+  defaultValues?: string[];
   placeholder?: string; // Placeholder text for the input field
 }
 
-export default function ChipsInput ({ label = "Tags", placeholder = "Enter tags...", name }: ChipsInputProps) {
-  const [chips, setChips] = useState<string[]>([]);
+export default function ChipsInput ({ label = "Tags", placeholder = "Enter tags...", name, defaultValues }: ChipsInputProps) {
+  const [chips, setChips] = useState<string[]>(defaultValues ? defaultValues : []);
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleAddChip = (): void => {

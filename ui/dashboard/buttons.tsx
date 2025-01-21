@@ -1,3 +1,4 @@
+import { deleteComp } from "@/lib/actions";
 import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
@@ -25,10 +26,14 @@ export function UpdateComp({ id }: { id: string }) {
 }
 
 export function DeleteComp({ id }: { id: string }) {
+  const deleteCompWithId = deleteComp.bind(null, id);
+
   return (
-    <button className="rounded-md border p-2 hover:bg-slate-100">
-      <span className="sr-only">Delete</span>
-      <TrashIcon className="w-5" />
-    </button>
+    <form action={deleteCompWithId}>
+      <button className="rounded-md border p-2 hover:bg-slate-100">
+        <span className="sr-only">Delete</span>
+        <TrashIcon className="w-5" />
+      </button>
+    </form>
   );
 }

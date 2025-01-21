@@ -1,18 +1,28 @@
-import ChipsInput from "@/components/chips-input";
-import DropdownList from "@/components/dropdown-list";
+import { Button } from "@/components/button";
+import { CpuChipIcon, CurrencyDollarIcon, GlobeAltIcon, HashtagIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 import { RadioGroup } from "@/components/radio-group";
-import Select from "@/components/select";
 import { TextInput } from "@/components/text-input";
 import { Textarea } from "@/components/textarea";
 import { categories, statuses, types } from "@/lib/component-data";
 import { fetchCompById } from "@/lib/data";
+import { updateComp } from "@/lib/actions";
+import { notFound } from "next/navigation";
+import ChipsInput from "@/components/chips-input";
+import DropdownList from "@/components/dropdown-list";
+import Select from "@/components/select";
 import Breadcrumbs from "@/ui/dashboard/breadcrumbs";
-import { CpuChipIcon, CurrencyDollarIcon, GlobeAltIcon, HashtagIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
   const comp = await fetchCompById(id);
+
+  if (!comp) {
+    notFound();
+  }
+  
+  const updateCompWithId = updateComp.bind(null, comp.id);
 
   return (
     <main>
@@ -31,7 +41,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
       />
 
       {/* CompForm */}
-      <form>
+      <form action={updateCompWithId}>
         <div className="rounded-md bg-slate-50 p-4 md:p-6">
           {/* Grid for compact layout */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
@@ -52,7 +62,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
               name="price"
               type="number"
               placeholder="Enter component price"
-              defaultValue={comp.price}
+              defaultValue={comp.price.toString()}
               icon={CurrencyDollarIcon}
               className="md:col-span-1"
             />
@@ -63,7 +73,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
               name="stock"
               type="number"
               placeholder="Enter component stock"
-              defaultValue={comp.stock}
+              defaultValue={comp.stock.toString()}
               icon={HashtagIcon}
               className="md:col-span-1"
             />
@@ -93,7 +103,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
               name="datasheet"
               type="url"
               placeholder="Enter component datasheet URL"
-              defaultValue={comp.datasheet}
+              defaultValue={comp.datasheet || ""}
               icon={GlobeAltIcon}
             />
           </div>
@@ -111,6 +121,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             label="Component Images"
             name="images"
             placeholder="Enter component images URLs"
+            defaultValues={comp.images}
           />
 
           {/* Component Status */}
@@ -118,9 +129,19 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             label="Set the component status"
             name="status"
             options={statuses}
+            defaultChecked={comp.isActive}
           />
+        </div>
+        <div className="mt-6 flex justify-end gap-4">
+          <Link
+            href="/dashboard/comps"
+            className="flex h-10 items-center rounded-lg bg-slate-100 px-4 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-200"
+          >
+            Cancel
+          </Link>
+          <Button type="submit">Edit Component</Button>
         </div>
       </form>
     </main>
   );
-}
+}   

@@ -5,7 +5,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-const CreateCompSchema = z.object({
+const FormSchema = z.object({
   id: z.string(),
   name: z.string(),
   type: z.string(),
@@ -20,7 +20,7 @@ const CreateCompSchema = z.object({
   updatedAt: z.string(),
 });
 
-const CreateComp = CreateCompSchema.omit({ id: true, createdAt: true, updatedAt: true });
+const CreateComp = FormSchema.omit({ id: true, createdAt: true, updatedAt: true });
 
 export async function createComp(formData: FormData) {
   const data = CreateComp.parse({
@@ -35,11 +35,44 @@ export async function createComp(formData: FormData) {
     isActive: formData.get("status") === "Out of Stock" ? false : true,
   });
 
-  // const comp = await prisma.comp.create({ data });
-  await prisma.comp.create({ data });
+  try {
+    await prisma.comp.create({ data });
+  } catch (error) {
+    console.error(error);
+  }
 
   revalidatePath("/dashboard/comps");
   redirect("/dashboard/comps");
 }
 
-// export async function deleteComp(formData: FormData) {}
+const UpdateComp = FormSchema.omit({ id: true, createdAt: true, updatedAt: true });
+
+export async function updateComp(id: string, formData: FormData) {
+  const data = UpdateComp.parse({
+    name: formData.get("name"),
+    type: formData.get("type"),
+    description: formData.get("description"),
+    datasheet: formData.get("datasheet"),
+    images: JSON.parse(formData.get("images") as string),
+    price: formData.get("price"),
+    stock: formData.get("stock"),
+    categories: JSON.parse(formData.get("categories") as string),
+    isActive: formData.get("status") === "Out of Stock" ? false : true,
+  });
+
+  try {
+    await prisma.comp.update({ where: { id }, data });
+  } catch (error) {
+    console.error(error);
+  }
+
+  revalidatePath("/dashboard/comps");
+  redirect("/dashboard/comps");
+}
+
+export async function deleteComp(id: string) {
+  throw new Error("Failed to Delete Component");
+  
+  await prisma.comp.delete({ where: { id } });
+  revalidatePath("/dashboard/comps");
+}
