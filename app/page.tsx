@@ -10,15 +10,18 @@ export default async function Home() {
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-[#000000] text-slate-300 p-4">
           <h1 className="text-red-300">NextJS Routing Files</h1>
-          <Link target="_blank" className="text-orange-300" href="https://nextjs.org/learn/dashboard-app/fetching-data">
+          {/* <Link target="_blank" className="text-orange-300" href="https://nextjs.org/learn/dashboard-app/fetching-data">
             👉 https://nextjs.org/learn/dashboard-app/fetching-data
+          </Link> */}
+          <Link target="_blank" className="text-orange-300" href="https://nextjs.org/learn/dashboard-app/improving-accessibility">
+            👉 https://nextjs.org/learn/dashboard-app/improving-accessibility
           </Link>
-          <Link target="_blank" className="text-orange-300" href="https://nextjs.org/docs/app/getting-started/images-and-fonts">
+          {/* <Link target="_blank" className="text-orange-300" href="https://nextjs.org/docs/app/getting-started/images-and-fonts">
             👉 https://nextjs.org/docs/app/getting-started/images-and-fonts
           </Link>
           <Link target="_blank" className="text-orange-300" href="https://www.partialprerendering.com/">
             👉 https://www.partialprerendering.com/
-          </Link>
+          </Link> */}
 
           <p>layout ✅</p>
           <p>page ✅</p>
