@@ -4,13 +4,15 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 import { useState, KeyboardEvent, ChangeEvent } from "react";
 
 interface ChipsInputProps {
-  label?: string; // Optional label for the input
-  name: string; // Name attribute for the input
-  defaultValues?: string[];
-  placeholder?: string; // Placeholder text for the input field
+  label?: string // Optional label for the input
+  name: string // Name attribute for the input
+  defaultValues?: string[]
+  placeholder?: string // Placeholder text for the input field
+  ariaDescribedby?: string
+  errors?: string[]
 }
 
-export default function ChipsInput ({ label = "Tags", placeholder = "Enter tags...", name, defaultValues }: ChipsInputProps) {
+export default function ChipsInput ({ label = "Tags", placeholder = "Enter tags...", name, defaultValues, ariaDescribedby, errors }: ChipsInputProps) {
   const [chips, setChips] = useState<string[]>(defaultValues ? defaultValues : []);
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -77,6 +79,15 @@ export default function ChipsInput ({ label = "Tags", placeholder = "Enter tags.
             defaultValue={JSON.stringify(chips)}
           />
         </div>
+      </div>
+      <div id={ariaDescribedby} aria-live="polite" aria-atomic="true">
+        {Boolean(errors?.length) &&
+          errors?.map((error: string) => (
+            <p className="mt-2 text-sm text-red-500" key={error}>
+              {error}
+            </p>
+          )
+        )}
       </div>
     </div>
   );

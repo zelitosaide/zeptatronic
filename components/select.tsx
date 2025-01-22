@@ -11,13 +11,15 @@ interface Item {
 }
 
 interface SelectProps {
-  label: string;
-  name: string;
-  defaultValue?: string;
-  items: Item[];
+  label: string
+  name: string
+  defaultValue?: string
+  items: Item[]
+  ariaDescribedby?: string
+  errors?: string[]
 }
 
-export default function Select({ label, name, defaultValue, items }: SelectProps) {
+export default function Select({ label, name, defaultValue, items, ariaDescribedby, errors }: SelectProps) {
   const [selected, setSelected] = useState<Item | null>(
     items.find((item) => item.name === defaultValue) || null
   );
@@ -66,6 +68,15 @@ export default function Select({ label, name, defaultValue, items }: SelectProps
               </ListboxOption>
             ))}
           </ListboxOptions>
+        </div>
+        <div id={ariaDescribedby} aria-live="polite" aria-atomic="true">
+          {Boolean(errors?.length) &&
+            errors?.map((error: string) => (
+              <p className="mt-2 text-sm text-red-500" key={error}>
+                {error}
+              </p>
+            )
+          )}
         </div>
       </Listbox>
       <input 

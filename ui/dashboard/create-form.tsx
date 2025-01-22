@@ -66,6 +66,8 @@ export default function CreateForm() {
             label="Component Type"
             name="type"
             items={types}
+            ariaDescribedby="component-type-error"
+            errors={state.errors?.type ? state.errors.type : []}
           />
 
           {/* Component Categories */}
@@ -73,6 +75,8 @@ export default function CreateForm() {
             label="Component Categories"
             name="categories"
             items={categories}
+            ariaDescribedby="component-categories-error"
+            errors={state.errors?.categories ? state.errors.categories : []}
           />
 
           {/* Component Datasheet URL */}
@@ -102,6 +106,8 @@ export default function CreateForm() {
           label="Component Images"
           name="images"
           placeholder="Enter component images URLs"
+          ariaDescribedby="component-images-error"
+          errors={state.errors?.images ? state.errors.images : []}
         />
 
         {/* Component Status */}
@@ -109,7 +115,15 @@ export default function CreateForm() {
           label="Set the component status"
           name="status"
           options={statuses}
+          ariaDescribedby="component-status-error"
+          errors={state.errors?.isActive ? state.errors.isActive : []}
         />
+
+        <div aria-live="polite" aria-atomic="true">
+          {state.message ? (
+            <p className="mt-2 text-sm text-red-500">{state.message}</p>
+          ) : null}
+        </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link

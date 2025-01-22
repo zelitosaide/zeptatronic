@@ -11,13 +11,15 @@ interface Item {
 }
 
 interface DropdownListProps {
-  label: string;
-  name: string;
-  defaultValues?: string[];
-  items: Item[];
+  label: string
+  name: string
+  defaultValues?: string[]
+  items: Item[]
+  ariaDescribedby?: string
+  errors?: string[]
 }
 
-export default function DropdownList({ label, name, defaultValues, items }: DropdownListProps) {
+export default function DropdownList({ label, name, defaultValues, items, ariaDescribedby, errors }: DropdownListProps) {
   const [selectedItems, setSelectedItems] = useState<Item[]>(
     defaultValues ? items.filter((item) => defaultValues.includes(item.name)) : []
   );
@@ -63,6 +65,15 @@ export default function DropdownList({ label, name, defaultValues, items }: Drop
               </ListboxOption>
             ))}
           </ListboxOptions>
+        </div>
+        <div id={ariaDescribedby} aria-live="polite" aria-atomic="true">
+          {Boolean(errors?.length) &&
+            errors?.map((error: string) => (
+              <p className="mt-2 text-sm text-red-500" key={error}>
+                {error}
+              </p>
+            )
+          )}
         </div>
       </Listbox>
       <input 

@@ -1,17 +1,19 @@
 import clsx from "clsx";
 
 interface RadioGroupProps {
-  label: string;
-  name: string;
-  defaultChecked?: boolean;
+  label: string
+  name: string
+  defaultChecked?: boolean
   options: { 
-    id: number,
-    value: string,
-    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>,
-  }[];
+    id: number
+    value: string
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  }[]
+  ariaDescribedby?: string
+  errors?: string[]
 }
 
-export function RadioGroup({ label, name, defaultChecked, options }: RadioGroupProps) {
+export function RadioGroup({ label, name, defaultChecked, options, ariaDescribedby, errors }: RadioGroupProps) {
   return (
     <fieldset>
       <legend className="mb-2 block text-sm font-medium">
@@ -52,6 +54,13 @@ export function RadioGroup({ label, name, defaultChecked, options }: RadioGroupP
           })}
         </div>
       </div>
+      {Boolean(errors?.length) &&
+        errors?.map((error: string) => (
+          <p className="mt-2 text-sm text-red-500" key={error}>
+            {error}
+          </p>
+        )
+      )}
     </fieldset>
   );
 }
