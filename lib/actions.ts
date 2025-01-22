@@ -19,7 +19,7 @@ const FormSchema = z.object({
   datasheet: z.string().url({ message: "Invalid URL format. Please provide a valid datasheet URL." }).optional(), // Campo opcional
   images: z.array(z.string().url({ message: "Invalid image URL format." })).min(1, { message: "At least one image URL is required." }),
   price: z.coerce.number().gt(0, { message: "Price must be greater than 0." }), // Ensures price > 0
-  stock: z.coerce.number().int({ message: "Stock must be an integer." }).gt(0, { message: "Stock must be greater than 0." }), // Ensures stock > 0
+  stock: z.coerce.number().int({ message: "Stock must be an integer." }),
   categories: z.array(z.string().min(1, { message: "Category cannot be empty." })).min(1, { message: "At least one category is required." }),
   isActive: z.boolean({
     invalid_type_error: "Please specify if the component is active.",
