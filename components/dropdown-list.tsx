@@ -19,7 +19,7 @@ interface DropdownListProps {
 
 export default function DropdownList({ label, name, defaultValues, items }: DropdownListProps) {
   const [selectedItems, setSelectedItems] = useState<Item[]>(
-    defaultValues ? items.filter((item) => defaultValues.includes(item.name)) : [items[0]]
+    defaultValues ? items.filter((item) => defaultValues.includes(item.name)) : []
   );
 
   return (

@@ -31,7 +31,7 @@ export function RadioGroup({ label, name, defaultChecked, options }: RadioGroupP
                   value={option.value}
                   defaultChecked={
                     defaultChecked && option.value === "In Stock" 
-                    || !defaultChecked && option.value === "Out of Stock"
+                    || defaultChecked === false && option.value === "Out of Stock"
                   }
                   className="h-4 w-4 cursor-pointer border-slate-300 bg-slate-100 text-slate-600 focus:border-teal-500 focus:border-opacity-60 focus:ring-2 focus:ring-teal-500"
                 />

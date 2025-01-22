@@ -7,38 +7,82 @@ import { redirect } from "next/navigation";
 
 const FormSchema = z.object({
   id: z.string(),
-  name: z.string(),
-  type: z.string(),
-  description: z.string(),
-  datasheet: z.string(),
-  images: z.array(z.string()),
-  price: z.coerce.number(),
-  stock: z.coerce.number(),
-  categories: z.array(z.string()),
-  isActive: z.boolean(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  name: z.string({
+    invalid_type_error: "Please enter the component name",
+  }).min(1, { message: "Component name cannot be empty." }),
+  type: z.string({
+    invalid_type_error: "Please select the component Type",
+  }).min(1, { message: "Component type cannot be empty." }),
+  description: z.string({
+    invalid_type_error: "Please enter the component description",
+  }).min(5, { message: "Description must be at least 5 characters long." }),
+  datasheet: z.string().url({ message: "Invalid URL format. Please provide a valid datasheet URL." }).optional(), // Campo opcional
+  images: z.array(z.string().url({ message: "Invalid image URL format." })).min(1, { message: "At least one image URL is required." }),
+  price: z.coerce.number().gt(0, { message: "Price must be greater than 0." }), // Ensures price > 0
+  stock: z.coerce.number().int({ message: "Stock must be an integer." }).gt(0, { message: "Stock must be greater than 0." }), // Ensures stock > 0
+  categories: z.array(z.string().min(1, { message: "Category cannot be empty." })).min(1, { message: "At least one category is required." }),
+  isActive: z.boolean({
+    invalid_type_error: "Please specify if the component is active.",
+  }),
+  createdAt: z.string().datetime({ message: "Invalid createdAt format. Please provide a valid datetime." }),
+  updatedAt: z.string().datetime({ message: "Invalid updatedAt format. Please provide a valid datetime." }),
 });
 
 const CreateComp = FormSchema.omit({ id: true, createdAt: true, updatedAt: true });
 
-export async function createComp(formData: FormData) {
-  const data = CreateComp.parse({
+export interface State {
+  errors?: {
+    name?: string[]
+    type?: string[]
+    description?: string[]
+    datasheet?: string[]
+    images?: string[]
+    price?: string[]
+    stock?: string[]
+    categories?: string[]
+    isActive?: string[]
+  }
+  message?: string | null
+}
+
+export async function createComp(prevState: State, formData: FormData) {
+  let status = null;
+  
+  if (formData.get("status") === "Out of Stock" ) {
+    status = false;
+  } else if (formData.get("status") === "In Stock") {
+    status = true;
+  }
+
+  const validatedFields = CreateComp.safeParse({
     name: formData.get("name"),
     type: formData.get("type"),
     description: formData.get("description"),
-    datasheet: formData.get("datasheet"),
+    datasheet: formData.get("datasheet") === "" ? undefined : formData.get("datasheet"),
     images: JSON.parse(formData.get("images") as string),
     price: formData.get("price"),
     stock: formData.get("stock"),
     categories: JSON.parse(formData.get("categories") as string),
-    isActive: formData.get("status") === "Out of Stock" ? false : true,
+    isActive: status,
   });
 
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create Component."
+    };
+  }
+
   try {
-    await prisma.comp.create({ data });
+    await prisma.comp.create({ 
+      data: validatedFields.data,
+    });
   } catch (error) {
-    console.error(error);
+    // If a database error occurs, return a more specific error.
+    return {
+      message: "Database Error: Failed to Create Component.",
+    }
   }
 
   revalidatePath("/dashboard/comps");
@@ -48,7 +92,7 @@ export async function createComp(formData: FormData) {
 const UpdateComp = FormSchema.omit({ id: true, createdAt: true, updatedAt: true });
 
 export async function updateComp(id: string, formData: FormData) {
-  const data = UpdateComp.parse({
+  const validatedFields = UpdateComp.safeParse({
     name: formData.get("name"),
     type: formData.get("type"),
     description: formData.get("description"),
@@ -60,19 +104,33 @@ export async function updateComp(id: string, formData: FormData) {
     isActive: formData.get("status") === "Out of Stock" ? false : true,
   });
 
-  try {
-    await prisma.comp.update({ where: { id }, data });
-  } catch (error) {
-    console.error(error);
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Component."
+    };
   }
 
+  try {
+    await prisma.comp.update({ 
+      where: { id }, 
+      data: validatedFields.data,
+    });
+  } catch (error) {
+    // If a database error occurs, return a more specific error.
+    return {
+      message: "Database Error: Failed to Update Component.",
+    }
+  }
+
+  // Revalidate the cache for the comps page and redirect the user.
   revalidatePath("/dashboard/comps");
   redirect("/dashboard/comps");
 }
 
 export async function deleteComp(id: string) {
-  throw new Error("Failed to Delete Component");
-  
+  // throw new Error("Failed to Delete Component");
   await prisma.comp.delete({ where: { id } });
   revalidatePath("/dashboard/comps");
 }

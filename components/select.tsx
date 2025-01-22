@@ -18,8 +18,8 @@ interface SelectProps {
 }
 
 export default function Select({ label, name, defaultValue, items }: SelectProps) {
-  const [selected, setSelected] = useState<Item>(
-    items.find((item) => item.name === defaultValue) || items[0]
+  const [selected, setSelected] = useState<Item | null>(
+    items.find((item) => item.name === defaultValue) || null
   );
 
   return (
