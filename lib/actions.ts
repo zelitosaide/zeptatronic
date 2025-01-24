@@ -81,6 +81,7 @@ export async function createComp(prevState: State, formData: FormData) {
       data: validatedFields.data,
     });
   } catch (error) {
+    console.log(error);
     // If a database error occurs, return a more specific error.
     return {
       message: "Database Error: Failed to Create Component.",
@@ -120,6 +121,7 @@ export async function updateComp(id: string, formData: FormData) {
       data: validatedFields.data,
     });
   } catch (error) {
+    console.log(error);
     // If a database error occurs, return a more specific error.
     return {
       message: "Database Error: Failed to Update Component.",

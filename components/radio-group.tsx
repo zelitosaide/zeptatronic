@@ -14,6 +14,8 @@ interface RadioGroupProps {
 }
 
 export function RadioGroup({ label, name, defaultChecked, options, ariaDescribedby, errors }: RadioGroupProps) {
+  console.log(ariaDescribedby);
+  
   return (
     <fieldset>
       <legend className="mb-2 block text-sm font-medium">
